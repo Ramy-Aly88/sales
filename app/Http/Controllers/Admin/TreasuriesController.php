@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\Treasuries;
 use App\Models\Admin;
+use App\Models\Treasuries;
+use App\Models\Treasuries_delivery; 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\TreasuriesRequest;
@@ -19,6 +20,8 @@ class TreasuriesController extends Controller
             if($info->updated_by>0 and $info->updated_by!=null){
             $info->updated_by_admin=Admin::where('id',$info->updated_by)->value('name');
                 }
+
+
             }
         }
         
@@ -130,4 +133,45 @@ class TreasuriesController extends Controller
             
             
             }
+
+
+            public function details($id){
+                try{
+                    $com_code=auth()->user()->com_code;
+                    $data=Treasuries::select()->find($id);
+                     if(empty($data)){
+                        return redirect()->route('admin.treasuries.index')->with(['error'=>'عفوا غير قادر علي الوصول الي البيانات المطلوبة !!']);
+                     }
+                     $data['added_by_admin']=Admin::where('id',$data['added_by'])->value('name');    
+                
+                     if($data['updated_by']>0 and $data['updated_by']!=null){
+                      $data['updated_by_admin']=Admin::where('id',$data['updated_by'])->value('name');    
+                         }
+                
+                
+                     
+                $treasuries_delivery=Treasuries_delivery::select()->where(['treasuries_id'=>$id])->orderby('id','DESC')->get(); 
+                if(!empty($treasuries_delivery)){
+                    foreach($treasuries_delivery as $info){
+                    $info->name=Treasuries::where('id',$info->treasuries_can_delivery_id)->value('name');    
+                    $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');    
+                }
+                }
+                
+                
+                return view("admin.treasuries.details",['data'=>$data,'treasuries_delivery'=>$treasuries_delivery]);
+
+
+                    }catch(\Exception $ex){
+    
+                        return redirect()->back()
+                        ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()]);
+                                  
+                    
+                    }
+
+
         }
+
+            }
+        
