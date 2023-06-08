@@ -107,7 +107,7 @@
         <!-------treasuries_delivery---------->
         <div class="card-header">
           <h3 class="card-title card_title_center">الخزن الفرعية التى سوف تسلم عهدتها  الى الخزنة({{ $data['name'] }}) 
-            <a href="#" class="btn btn-sm btn-primary">إضافة جديد</a>
+            <a href="{{ route('admin.treasuries.Add_treasuries_delivery',$data['id']) }}" class="btn btn-sm btn-primary">إضافة جديد</a>
           </h3>
        
         
@@ -154,8 +154,8 @@
   
   
          <td>
-          <a href="#" class="btn btn-sm btn-danger">حذف</a>
-         </td>
+          <a href="{{ route('admin.treasuries.delete_treasuries_delivery',$info->id) }}" class="btn btn-sm btn-danger are_you_shue">حذف</a>
+        </td>
            
    
            </tr> 

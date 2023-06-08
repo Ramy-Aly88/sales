@@ -7,6 +7,7 @@ use App\Models\Treasuries_delivery;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\TreasuriesRequest;
+use App\Http\Requests\Addtreasuries_deliveryRequest;
 
 
 class TreasuriesController extends Controller
@@ -173,5 +174,101 @@ class TreasuriesController extends Controller
 
         }
 
+        public function Add_treasuries_delivery($id){
+            try{
+                $com_code=auth()->user()->com_code;
+                $data=Treasuries::select('id','name')->find($id);
+                if(empty($data)){
+                    return redirect()->route('admin.treasuries.index')->with(['error'=>'عفوا غير قادر علي الوصول الي البيانات المطلوبة !!']);
+                }
+
+                $Treasuries=Treasuries::select('id','name')->where(['com_code'=>$com_code,'active'=>1])->get();  
+                return view("admin.treasuries.Add_treasuries_delivery",['data'=>$data,'Treasuries'=>$Treasuries]);
+
+
+
+            }catch(\Exception $ex){
+
+
+
+
+
             }
+            
+            }
+            public function store_treasuries_delivery($id,Addtreasuries_deliveryRequest $request){
+
+                try{
+                    $com_code=auth()->user()->com_code;
+                    $Treasuries=new Treasuries();
+                    $data=Treasuries::select('id','name')->find($id);
+                     if(empty($data)){
+                        return redirect()->route('admin.treasuries.index')->with(['error'=>'عفوا غير قادر علي الوصول الي البيانات المطلوبة !!']);
+                     }
+            
+                   
+                        $checkExists=Treasuries_delivery::where(['treasuries_id'=>$id,'treasuries_can_delivery_id'=>$request->treasuries_can_delivery_id,'com_code'=>$com_code])->first();
+                       if($checkExists!=null){
+                        return redirect()->back()
+                        ->with(['error'=>'عفوا هذه الخزنة مسجلة من قبل !'])
+                        ->withInput(); 
+                    }
+            
+                    $data_insert_details['treasuries_id']=$id;
+                    $data_insert_details['treasuries_can_delivery_id']=$request->treasuries_can_delivery_id;
+                    $data_insert_details['created_at']=date("Y-m-d H:i:s");
+                    $data_insert_details['added_by']=auth()->user()->id;
+                    $data_insert_details['com_code']=$com_code;
+                    Treasuries_delivery::create($data_insert_details);
+                    
+                    return redirect()->route('admin.treasuries.details',$id)->with(['success'=>'لقد تم اضافة البيانات بنجاح']);
+                    
+            
+            
+            
+                
+                
+                
+                }catch(\Exception $ex){
+                
+                    return redirect()->back()
+                    ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()]);
+                              
+                
+                }
+                
+                } 
+
+
+                public function delete_treasuries_delivery($id){
+                    try{
+                    $treasuries_delivery=Treasuries_delivery::find($id);
+                    if(!empty($treasuries_delivery)){
+                        $flag=$treasuries_delivery->delete();
+                        if($flag){
+                            return redirect()->back()
+                            ->with(['success'=>'   تم حذف البيانات بنجاح']);
+                        }else{
+                            return redirect()->back()
+                            ->with(['error'=>'عفوا حدث خطأ ما']);
+                                      
+                        }
+                    }else{
+                        return redirect()->back()
+                        ->with(['error'=>'عفوا غير قادر الي الوصول للبيانات المطلوبة']);
+                    }
+                    
+                    
+                    }catch(\Exception $ex){
+                        
+                            return redirect()->back()
+                            ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()]);
+                                      
+                        
+                    
+                        }
+                        
+                       }
+                       
+                    }
         
