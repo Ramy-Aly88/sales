@@ -35,7 +35,7 @@
 
       <div class="form-group">
       <label>اسم الخزنة</label>
-      <input name="name" id="name" class="form-control" value="{{ old('name')}}" placeholder="ادخل اسم الخزنة" oninvalid="setCustomValidity('من فضلك ادخل  رسالة التنبية')" onchange="try{setCustomValidity('')}catch(e){}" >
+      <input name="name" id="name" class="form-control" value="{{ old('name')}}" placeholder="ادخل اسم الخزنة"  >
       @error('name')
       <span class="text-danger">{{ $message }}</span>
       @enderror  
@@ -56,7 +56,7 @@
 
       <div class="form-group">
         <label>اخر رقم ايصال صرف نقدية لهذة الخزنة</label>
-        <input oninput="this.value=this.value.replace(/[^0-9]/g,'');"  name="last_isal_exchange" id="last_isal_exchange" class="form-control" value="{{ old('last_isal_exchange')}}" placeholder="ادخل اخر رقم ايصال صرف نقدية لهذة الخزنة" oninvalid="setCustomValidity('من فضلك ادخل  رسالة التنبية')" onchange="try{setCustomValidity('')}catch(e){}" >
+        <input oninput="this.value=this.value.replace(/[^0-9]/g,'');"  name="last_isal_exchange" id="last_isal_exchange" class="form-control" value="{{ old('last_isal_exchange')}}" placeholder="ادخل اخر رقم ايصال صرف نقدية لهذة الخزنة"  >
         @error('last_isal_exchange')
         <span class="text-danger">{{ $message }}</span>
         @enderror  
@@ -64,7 +64,7 @@
 
         <div class="form-group">
           <label>اخر رقم ايصال تحصيل نقدية لهذة الخزنة</label>
-          <input oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="last_isal_collect" id="last_isal_collect" class="form-control" value="{{ old('last_isal_collect')}}" placeholder="ادخل اخر رقم ايصال تحصيل نقدية لهذة الخزنة" oninvalid="setCustomValidity('من فضلك ادخل  رسالة التنبية')" onchange="try{setCustomValidity('')}catch(e){}" >
+          <input oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="last_isal_collect" id="last_isal_collect" class="form-control" value="{{ old('last_isal_collect')}}" placeholder="ادخل اخر رقم ايصال تحصيل نقدية لهذة الخزنة"  >
           @error('last_isal_collect')
           <span class="text-danger">{{ $message }}</span>
           @enderror  
@@ -84,7 +84,7 @@
 
 
           <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary btn-sm">حفظ التعديلات</button>
+            <button type="submit" class="btn btn-primary btn-sm">إضافة </button>
           <a href="{{ route('admin.treasuries.index') }}" class="btn btn-sm btn-danger">إلغاء</a>      
           </div>
             

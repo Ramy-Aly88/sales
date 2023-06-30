@@ -37,7 +37,7 @@
         
       <div class="form-group">
         <label>اسم الخزنة</label>
-        <input name="name" id="name" class="form-control" value="{{ old('name',$data['name']) }}" placeholder="ادخل اسم الشركة" oninvalid="setCustomValidity('من فضلك ادخل هذا الحقل')" onchange="try{setCustomValidity('')}catch(e){}"  >
+        <input name="name" id="name" class="form-control" value="{{ old('name',$data['name']) }}" placeholder="ادخل اسم الشركة" >
         @error('name')
         <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -58,7 +58,7 @@
         
                   <div class="form-group">
                   <label> اخر رقم ايصال صرف نقدية لهذة الخزنة</label>
-                  <input oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="last_isal_exchange" id="last_isal_exchange" class="form-control"  value="{{ old('last_isal_exchange',$data['last_isal_exchange']) }}" placeholder=" اخر رقم ايصال صرف نقدية لهذة الخزنة " oninvalid="setCustomValidity('من فضلك ادخل هذا الحقل')" onchange="try{setCustomValidity('')}catch(e){}"  >
+                  <input oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="last_isal_exchange" id="last_isal_exchange" class="form-control"  value="{{ old('last_isal_exchange',$data['last_isal_exchange']) }}" placeholder=" اخر رقم ايصال صرف نقدية لهذة الخزنة "   >
                   @error('last_isal_exchange')
                   <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -67,7 +67,7 @@
 
                   <div class="form-group">
                     <label> اخر رقم ايصال تحصيل نقدية لهذة الخزنة</label>
-                    <input oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="last_isal_collect" id="last_isal_collect" class="form-control"  value="{{ old('last_isal_collect',$data['last_isal_collect']) }}" placeholder="اخر رقم ايصال تحصيل نقدية لهذة الخزنة " oninvalid="setCustomValidity('من فضلك ادخل هذا الحقل')" onchange="try{setCustomValidity('')}catch(e){}"  >
+                    <input oninput="this.value=this.value.replace(/[^0-9]/g,'');" name="last_isal_collect" id="last_isal_collect" class="form-control"  value="{{ old('last_isal_collect',$data['last_isal_collect']) }}" placeholder="اخر رقم ايصال تحصيل نقدية لهذة الخزنة "   >
                     @error('last_isal_collect')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -80,7 +80,7 @@
               <option {{  old('active',$data['active'])==1 ? 'selected' : ''}}   value="1"> مفعلة</option>
               <option {{ old('active',$data['active'])==0 ? 'selected' : ''}}  value="0"> معطلة</option>
             </select>
-            @error('is_master')
+            @error('active')
             <span class="text-danger">{{ $message }}</span>
             @enderror
             </div>

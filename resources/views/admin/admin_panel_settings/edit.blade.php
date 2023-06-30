@@ -37,7 +37,7 @@
 
       <div class="form-group">
       <label>اسم الشركة</label>
-      <input name="system_name" id="system_name" class="form-control" value="{{ $data['system_name'] }}" placeholder="ادخل اسم الشركة" oninvalid="setCustomValidity('من فضلك ادخل اسم الشركة')" onchange="try{setCustomValidity('')}catch(e){}" >
+      <input name="system_name" id="system_name" class="form-control" value="{{ $data['system_name'] }}" placeholder="ادخل اسم الشركة"  >
       @error('system_name')
       <span class="text-danger">{{ $message }}</span>
       @enderror  
@@ -47,7 +47,7 @@
 
       <div class="form-group">
         <label>عنوان الشركة</label>
-        <input name="address" id="address" class="form-control" value="{{ $data['address'] }}" placeholder="ادخل عنوان الشركة" oninvalid="setCustomValidity('من فضلك ادخل عنوان الشركة')" onchange="try{setCustomValidity('')}catch(e){}" >
+        <input name="address" id="address" class="form-control" value="{{ $data['address'] }}" placeholder="ادخل عنوان الشركة" >
         @error('address')
         <span class="text-danger">{{ $message }}</span>
         @enderror   
@@ -56,7 +56,7 @@
 
         <div class="form-group">
           <label>هاتف الشركة</label>
-          <input name="phone" id="phone" class="form-control" value="{{ $data['phone'] }}" placeholder="ادخل هاتف الشركة" oninvalid="setCustomValidity('من فضلك ادخل هاتف الشركة')" onchange="try{setCustomValidity('')}catch(e){}" >
+          <input name="phone" id="phone" class="form-control" value="{{ $data['phone'] }}" placeholder="ادخل هاتف الشركة" >
           @error('phone')
           <span class="text-danger">{{ $message }}</span>
           @enderror   

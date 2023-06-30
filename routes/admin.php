@@ -4,6 +4,7 @@
         use App\Http\Controllers\Admin\LoginController;
         use App\Http\Controllers\Admin\DashboardController;
         use App\Http\Controllers\Admin\Admin_panel_settingsController;
+        use App\Http\Controllers\Admin\Sales_matrial_typesController;
         use App\Http\Controllers\Admin\TreasuriesController;
 
 
@@ -21,7 +22,6 @@ Route ::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'auth:admin'
         Route::post('/adminpanelsetting/update',[Admin_panel_settingsController::class,'update'])->name('admin.adminpanelsetting.update');
 
  /*    Start Treasuries Routes    */
-
         Route::get('/treasuries/index', [TreasuriesController::class, 'index'])->name('admin.treasuries.index');
         Route::get('/treasuries/create', [TreasuriesController::class, 'create'])->name('admin.treasuries.create');
         Route::post('/treasuries/store', [TreasuriesController::class, 'store'])->name('admin.treasuries.store');
@@ -32,9 +32,21 @@ Route ::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'auth:admin'
         Route::get('/treasuries/Add_treasuries_delivery/{id}', [TreasuriesController::class, 'Add_treasuries_delivery'])->name('admin.treasuries.Add_treasuries_delivery');
         Route::post('/treasuries/store_treasuries_delivery/{id}', [TreasuriesController::class, 'store_treasuries_delivery'])->name('admin.treasuries.store_treasuries_delivery');
         Route::get('/treasuries/delete_treasuries_delivery/{id}', [TreasuriesController::class, 'delete_treasuries_delivery'])->name('admin.treasuries.delete_treasuries_delivery');
-
-
 /*   End Treasuries Routes    */
+
+/*    Start sales_material_types Routes    */
+        Route::get('/sales_matrial_types/index', [Sales_matrial_typesController::class, 'index'])->name('admin.sales_matrial_types.index');
+        Route::get('/sales_matrial_types/create', [Sales_matrial_typesController::class, 'create'])->name('admin.sales_matrial_types.create');
+        Route::post('/sales_matrial_types/store', [Sales_matrial_typesController::class, 'store'])->name('admin.sales_matrial_types.store');
+        Route::get('/sales_matrial_types/edit/{id}', [Sales_matrial_typesController::class, 'edit'])->name('admin.sales_matrial_types.edit');
+        Route::post('/sales_matrial_types/update/{id}', [Sales_matrial_typesController::class, 'update'])->name('admin.sales_matrial_types.update');
+        Route::get('/sales_matrial_types/delete_sales_matrial_types/{id}', [Sales_matrial_typesController::class, 'delete'])->name('admin.sales_matrial_types.delete');
+
+
+
+/*   End sales_material_types Routes    */
+
+
 
 });
 

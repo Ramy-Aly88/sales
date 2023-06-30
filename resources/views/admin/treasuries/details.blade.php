@@ -154,7 +154,7 @@
   
   
          <td>
-          <a href="{{ route('admin.treasuries.delete_treasuries_delivery',$info->id) }}" class="btn btn-sm btn-danger are_you_shue">حذف</a>
+          <a href="{{ route('admin.treasuries.delete_treasuries_delivery',$info->id) }}" class="btn btn-sm btn-danger are_you_sure">حذف</a>
         </td>
            
    
