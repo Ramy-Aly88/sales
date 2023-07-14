@@ -23,36 +23,44 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-         
-          <li class="nav-item">
-            <a href="{{ route('admin.adminpanelsetting.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                الضبط العام
-                
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.treasuries.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                 بيانات الخزن
-                
-              </p>
-            </a>
-          </li>
 
-          <li class="nav-item">
-            <a href="{{ route('admin.sales_matrial_types.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                 بيانات فئات الفواتير
-                
-              </p>
-            </a>
-          </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.adminpanelsetting.index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                        الضبط العام
 
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.treasuries.index') }}" class="nav-link">
+                    *
+                    <p>
+                        بيانات الخزن
+
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('admin.sales_matrial_types.index') }}" class="nav-link">
+                    *
+                    <p>
+                        بيانات فئات الفواتير
+
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('admin.stores.index') }}" class="nav-link">
+                    *
+                    <p>
+                        بيانات المخازن
+                    </p>
+                </a>
+            </li>
 
         </ul>
       </nav>

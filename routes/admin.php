@@ -6,6 +6,7 @@
         use App\Http\Controllers\Admin\Admin_panel_settingsController;
         use App\Http\Controllers\Admin\Sales_matrial_typesController;
         use App\Http\Controllers\Admin\TreasuriesController;
+        use App\Http\Controllers\Admin\StoresController;
 
 
 
@@ -46,6 +47,14 @@ Route ::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'auth:admin'
 
 /*   End sales_material_types Routes    */
 
+    /*Start Stores Routes    */
+    Route::get('/stores/index', [StoresController::class, 'index'])->name('admin.stores.index');
+    Route::get('/stores/create', [StoresController::class, 'create'])->name('admin.stores.create');
+    Route::post('/stores/store', [StoresController::class, 'store'])->name('admin.stores.store');
+    Route::get('/stores/edit/{id}', [StoresController::class, 'edit'])->name('admin.stores.edit');
+    Route::post('/stores/update/{id}', [StoresController::class, 'update'])->name('admin.stores.update');
+    Route::get('/stores/delete_sales_matrial_types/{id}', [StoresController::class, 'delete'])->name('admin.stores.delete');
+    /*End Stores Routes    */
 
 
 });
@@ -53,5 +62,5 @@ Route ::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'auth:admin'
         Route ::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'guest:admin'],function(){
         Route::get('login',[LoginController::class,'show_login_view'])->name('admin.showlogin');
         Route::post('login',[LoginController::class,'login'])->name('admin.login');
-        
+
     });
