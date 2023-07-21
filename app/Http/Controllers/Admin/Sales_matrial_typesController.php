@@ -11,11 +11,11 @@ use App\Http\Requests\SalesMatrialtypesRequest;
 class Sales_matrial_typesController extends Controller
 {
     public function index(){
-        $data=Sales_matrial_types::select()->orderby('id','DESC')->paginate(PAGINATION_COUNT); 
-        
+        $data=Sales_matrial_types::select()->orderby('id','asc')->paginate(PAGINATION_COUNT);
+
         if(!empty($data)){
             foreach($data as $info){
-            $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');    
+            $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');
             if($info->updated_by>0 and $info->updated_by!=null){
             $info->updated_by_admin=Admin::where('id',$info->updated_by)->value('name');
                 }
@@ -23,7 +23,7 @@ class Sales_matrial_typesController extends Controller
             }
         }
 
-       return view('admin.sales_matrial_types.index',['data'=>$data]);  
+       return view('admin.sales_matrial_types.index',['data'=>$data]);
     }
     public function create(){
         return view('admin.sales_matrial_types.create');
@@ -43,8 +43,9 @@ class Sales_matrial_typesController extends Controller
                 $data['com_code'] = $com_code;
                 $data['date'] = date("Y-m-d");
                 Sales_matrial_types::create($data);
-                return redirect()->route('admin.sales_matrial_types.index')->with(['success' => 'لقد تم اضافة البيانات بنجاح']);
-            } else {
+                return redirect()->route('admin.sales_matrial_types.index')->with(['success' => 'لقد تم اضافة الفئة بنجاح']);
+            }
+            else {
                 return redirect()->back()
                     ->with(['error' => 'عفوا اسم الفئة مسجل من قبل'])
                     ->withInput();
@@ -72,9 +73,9 @@ class Sales_matrial_typesController extends Controller
         if( $checkExists!=null){
         return redirect()->back()
         ->with(['error'=>'عفوا اسم الفئة مسجل من قبل'])
-        ->withInput(); 
+        ->withInput();
         }
-       
+
         $data_to_update['name']=$request->name;
         $data_to_update['active']=$request->active;
         $data_to_update['updated_by']=auth()->user()->id;
@@ -84,7 +85,7 @@ class Sales_matrial_typesController extends Controller
         }catch(\Exception $ex){
         return redirect()->back()
         ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()])
-        ->withInput();           
+        ->withInput();
         }
         }
         public function delete($id){
@@ -98,22 +99,22 @@ class Sales_matrial_typesController extends Controller
                 }else{
                     return redirect()->back()
                     ->with(['error'=>'عفوا حدث خطأ ما']);
-                              
+
                 }
             }else{
                 return redirect()->back()
                 ->with(['error'=>'عفوا غير قادر الي الوصول للبيانات المطلوبة']);
             }
-            
-            
+
+
             }catch(\Exception $ex){
-                
+
                     return redirect()->back()
                     ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()]);
-                              
-                
-            
+
+
+
                 }
-                
+
                }
 }

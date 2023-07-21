@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\Admin;
 use App\Models\Treasuries;
-use App\Models\Treasuries_delivery; 
+use App\Models\Treasuries_delivery;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\TreasuriesRequest;
@@ -13,11 +13,11 @@ use App\Http\Requests\Addtreasuries_deliveryRequest;
 class TreasuriesController extends Controller
 {
     public function index(){
-        $data=Treasuries::select()->orderby('id','DESC')->paginate(PAGINATION_COUNT); 
-        
+        $data=Treasuries::select()->orderby('id','asc')->paginate(PAGINATION_COUNT);
+
         if(!empty($data)){
             foreach($data as $info){
-            $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');    
+            $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');
             if($info->updated_by>0 and $info->updated_by!=null){
             $info->updated_by_admin=Admin::where('id',$info->updated_by)->value('name');
                 }
@@ -25,10 +25,10 @@ class TreasuriesController extends Controller
 
             }
         }
-        
+
 
        return view('admin.treasuries.index',['data'=>$data]);
-        
+
     }
     public function create(){
         return view('admin.treasuries.create');
@@ -50,7 +50,7 @@ class TreasuriesController extends Controller
                 }
             }
 
-            
+
             $data['name']=$request->name;
             $data['is_master']=$request->is_master;
             $data['last_isal_exchange']=$request->last_isal_exchange;
@@ -61,13 +61,13 @@ class TreasuriesController extends Controller
             $data['com_code']=$com_code;
             $data['date']=date("Y-m-d");
             Treasuries::create( $data);
-            return redirect()->route('admin.treasuries.index')->with(['success' => ' تم إضافة البيانات بنجاح']);
+            return redirect()->route('admin.treasuries.index')->with(['success' => ' تم إضافة الخزنة بنجاح']);
 
         }else{
             return redirect()->back()
             ->with(['error'=>'عفوا أسم الخزنة مسجل من قبل'])
             ->withInput();
- 
+
         }
 
 
@@ -78,7 +78,7 @@ class TreasuriesController extends Controller
 
 
     }
-   
+
     public function edit($id){
         $data=Treasuries::select()->find($id);
         return view('admin.treasuries.edit',['data'=>$data]);
@@ -96,14 +96,14 @@ class TreasuriesController extends Controller
         if( $checkExists!=null){
         return redirect()->back()
         ->with(['error'=>'عفوا اسم الخزنة مسجل من قبل'])
-        ->withInput(); 
+        ->withInput();
         }
         if($request->is_master==1){
         $checkExists_isMaster=Treasuries::where(['is_master'=>1,'com_code'=>$com_code])->where('id','!=',$id)->first();
         if($checkExists_isMaster!=null){
         return redirect()->back()
         ->with(['error'=>'عفوا هناك خزنة رئيسية بالفعل مسجلة من قبل لايمكن ان يكون هناك اكثر من خزنة رئيسية'])
-        ->withInput(); 
+        ->withInput();
         }
         }
         $data_to_update['name']=$request->name;
@@ -118,7 +118,7 @@ class TreasuriesController extends Controller
         }catch(\Exception $ex){
         return redirect()->back()
         ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()])
-        ->withInput();           
+        ->withInput();
         }
         }
 
@@ -126,13 +126,13 @@ class TreasuriesController extends Controller
 
         public function ajax_search(Request $request){
             if($request->ajax()){
-            
+
                 $search_by_text=$request->search_by_text;
                 $data=Treasuries::where('name','LIKE',"%{$search_by_text}%")->orderBy('id','DESC')->paginate(PAGINATION_COUNT);
                 return view('admin.treasuries.ajax_search',['data'=>$data]);
             }
-            
-            
+
+
             }
 
 
@@ -143,32 +143,32 @@ class TreasuriesController extends Controller
                      if(empty($data)){
                         return redirect()->route('admin.treasuries.index')->with(['error'=>'عفوا غير قادر علي الوصول الي البيانات المطلوبة !!']);
                      }
-                     $data['added_by_admin']=Admin::where('id',$data['added_by'])->value('name');    
-                
+                     $data['added_by_admin']=Admin::where('id',$data['added_by'])->value('name');
+
                      if($data['updated_by']>0 and $data['updated_by']!=null){
-                      $data['updated_by_admin']=Admin::where('id',$data['updated_by'])->value('name');    
+                      $data['updated_by_admin']=Admin::where('id',$data['updated_by'])->value('name');
                          }
-                
-                
-                     
-                $treasuries_delivery=Treasuries_delivery::select()->where(['treasuries_id'=>$id])->orderby('id','DESC')->get(); 
+
+
+
+                $treasuries_delivery=Treasuries_delivery::select()->where(['treasuries_id'=>$id])->orderby('id','DESC')->get();
                 if(!empty($treasuries_delivery)){
                     foreach($treasuries_delivery as $info){
-                    $info->name=Treasuries::where('id',$info->treasuries_can_delivery_id)->value('name');    
-                    $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');    
+                    $info->name=Treasuries::where('id',$info->treasuries_can_delivery_id)->value('name');
+                    $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');
                 }
                 }
-                
-                
+
+
                 return view("admin.treasuries.details",['data'=>$data,'treasuries_delivery'=>$treasuries_delivery]);
 
 
                     }catch(\Exception $ex){
-    
+
                         return redirect()->back()
                         ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()]);
-                                  
-                    
+
+
                     }
 
 
@@ -182,7 +182,7 @@ class TreasuriesController extends Controller
                     return redirect()->route('admin.treasuries.index')->with(['error'=>'عفوا غير قادر علي الوصول الي البيانات المطلوبة !!']);
                 }
 
-                $Treasuries=Treasuries::select('id','name')->where(['com_code'=>$com_code,'active'=>1])->get();  
+                $Treasuries=Treasuries::select('id','name')->where(['com_code'=>$com_code,'active'=>1])->get();
                 return view("admin.treasuries.Add_treasuries_delivery",['data'=>$data,'Treasuries'=>$Treasuries]);
 
 
@@ -194,7 +194,7 @@ class TreasuriesController extends Controller
 
 
             }
-            
+
             }
             public function store_treasuries_delivery($id,Addtreasuries_deliveryRequest $request){
 
@@ -205,39 +205,39 @@ class TreasuriesController extends Controller
                      if(empty($data)){
                         return redirect()->route('admin.treasuries.index')->with(['error'=>'عفوا غير قادر علي الوصول الي البيانات المطلوبة !!']);
                      }
-            
-                   
+
+
                         $checkExists=Treasuries_delivery::where(['treasuries_id'=>$id,'treasuries_can_delivery_id'=>$request->treasuries_can_delivery_id,'com_code'=>$com_code])->first();
                        if($checkExists!=null){
                         return redirect()->back()
                         ->with(['error'=>'عفوا هذه الخزنة مسجلة من قبل !'])
-                        ->withInput(); 
+                        ->withInput();
                     }
-            
+
                     $data_insert_details['treasuries_id']=$id;
                     $data_insert_details['treasuries_can_delivery_id']=$request->treasuries_can_delivery_id;
                     $data_insert_details['created_at']=date("Y-m-d H:i:s");
                     $data_insert_details['added_by']=auth()->user()->id;
                     $data_insert_details['com_code']=$com_code;
                     Treasuries_delivery::create($data_insert_details);
-                    
+
                     return redirect()->route('admin.treasuries.details',$id)->with(['success'=>'لقد تم اضافة البيانات بنجاح']);
-                    
-            
-            
-            
-                
-                
-                
+
+
+
+
+
+
+
                 }catch(\Exception $ex){
-                
+
                     return redirect()->back()
                     ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()]);
-                              
-                
+
+
                 }
-                
-                } 
+
+                }
 
 
                 public function delete_treasuries_delivery($id){
@@ -251,24 +251,23 @@ class TreasuriesController extends Controller
                         }else{
                             return redirect()->back()
                             ->with(['error'=>'عفوا حدث خطأ ما']);
-                                      
+
                         }
                     }else{
                         return redirect()->back()
                         ->with(['error'=>'عفوا غير قادر الي الوصول للبيانات المطلوبة']);
                     }
-                    
-                    
+
+
                     }catch(\Exception $ex){
-                        
+
                             return redirect()->back()
                             ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()]);
-                                      
-                        
-                    
+
+
+
                         }
-                        
+
                        }
-                       
+
                     }
-        

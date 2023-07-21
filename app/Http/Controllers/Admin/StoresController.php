@@ -10,18 +10,18 @@ use App\Http\Requests\StoresRequest;
 class StoresController extends Controller
 {
     public function index(){
-        $data=Store::select()->orderby('id','DESC')->paginate(PAGINATION_COUNT); 
+        $data=Store::select()->orderby('id','asc')->paginate(PAGINATION_COUNT);
         if(!empty($data)){
             foreach($data as $info){
-            $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');    
+            $info->added_by_admin=Admin::where('id',$info->added_by)->value('name');
             if($info->updated_by>0 and $info->updated_by!=null){
             $info->updated_by_admin=Admin::where('id',$info->updated_by)->value('name');
                 }
 
             }
         }
-       return view('admin.stores.index',['data'=>$data]);  
-    }  
+       return view('admin.stores.index',['data'=>$data]);
+    }
     public function create(){
         return view('admin.stores.create');
     }
@@ -42,7 +42,7 @@ class StoresController extends Controller
                 $data['com_code'] = $com_code;
                 $data['date'] = date("Y-m-d");
                 Store::create($data);
-                return redirect()->route('admin.stores.index')->with(['success' => 'لقد تم اضافة البيانات بنجاح']);
+                return redirect()->route('admin.stores.index')->with(['success' => 'لقد تم اضافة بيانات المخزن بنجاح']);
             } else {
                 return redirect()->back()
                     ->with(['error' => 'عفوا اسم المخزن مسجل من قبل'])
@@ -71,9 +71,9 @@ class StoresController extends Controller
         if( $checkExists!=null){
         return redirect()->back()
         ->with(['error'=>'عفوا اسم الفئة مسجل من قبل'])
-        ->withInput(); 
+        ->withInput();
         }
-       
+
         $data_to_update['name']=$request->name;
         $data_to_update['phones']=$request->phones;
         $data_to_update['address']=$request->address;
@@ -85,7 +85,7 @@ class StoresController extends Controller
         }catch(\Exception $ex){
         return redirect()->back()
         ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()])
-        ->withInput();           
+        ->withInput();
         }
         }
         public function delete($id){
@@ -95,27 +95,27 @@ class StoresController extends Controller
                 $flag=$item_row->delete();
                 if($flag){
                     return redirect()->back()
-                    ->with(['success'=>'   تم حذف البيانات بنجاح']);
+                    ->with(['success'=>'   تم حذف المخزن بنجاح']);
                 }else{
                     return redirect()->back()
                     ->with(['error'=>'عفوا حدث خطأ ما']);
-                              
+
                 }
             }else{
                 return redirect()->back()
                 ->with(['error'=>'عفوا غير قادر الي الوصول للبيانات المطلوبة']);
             }
-            
-            
+
+
             }catch(\Exception $ex){
-                
+
                     return redirect()->back()
                     ->with(['error'=>'عفوا حدث خطأ ما'.$ex->getMessage()]);
-                              
-                
-            
+
+
+
                 }
-                
+
                }
 
 

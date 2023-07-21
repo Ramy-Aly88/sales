@@ -90,7 +90,7 @@
                      {{ $time }}
                      {{ $newDateTimeType }}  <br>
                      بواسطة
-                     {{ $data['updated_by_admin'] }}
+                      {{ $info->updated_by_admin}}
                 @else
                      لايوجد تحديث
               @endif
