@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2023 at 08:42 PM
+-- Generation Time: Jul 22, 2023 at 04:43 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -78,6 +78,36 @@ INSERT INTO `admin_panel_settings` (`id`, `system_name`, `photo`, `active`, `gen
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `inv_uoms`
+--
+
+CREATE TABLE `inv_uoms` (
+  `id` int(11) NOT NULL,
+  `name` varchar(252) NOT NULL,
+  `is_master` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `added_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `com_code` int(11) NOT NULL,
+  `date` date NOT NULL COMMENT 'for search',
+  `active` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول الوحدات';
+
+--
+-- Dumping data for table `inv_uoms`
+--
+
+INSERT INTO `inv_uoms` (`id`, `name`, `is_master`, `created_at`, `updated_at`, `added_by`, `updated_by`, `com_code`, `date`, `active`) VALUES
+(8, 'ؤررؤb', 0, '2023-07-17 21:48:36', '2023-07-21 21:06:53', 1, 1, 1, '2023-07-17', 0),
+(9, 'شكارة', 1, '2023-07-17 22:08:25', '2023-07-17 22:08:25', 1, NULL, 1, '2023-07-17', 1),
+(11, 'سسشش', 1, '2023-07-21 22:52:53', '2023-07-21 22:52:53', 1, NULL, 1, '2023-07-21', 1),
+(12, 'ءسش', 1, '2023-07-21 22:53:10', '2023-07-21 22:53:10', 1, NULL, 1, '2023-07-21', 1),
+(13, 'يؤسي', 0, '2023-07-21 22:53:35', '2023-07-21 22:53:35', 1, NULL, 1, '2023-07-21', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sales_matrial_types`
 --
 
@@ -113,6 +143,14 @@ CREATE TABLE `stores` (
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `stores`
+--
+
+INSERT INTO `stores` (`id`, `name`, `phones`, `address`, `created_at`, `updated_at`, `added_by`, `updated_by`, `com_code`, `date`, `active`) VALUES
+(2, 'اللحوم', '123456789', 'المنصورة', '2023-07-15 18:28:07', '2023-07-15 18:28:07', 1, NULL, 1, '2023-07-15', 1),
+(3, 'الفراخ', '987654321', 'ميت خميس', '2023-07-15 18:28:38', '2023-07-16 19:41:58', 1, 1, 1, '2023-07-15', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -139,8 +177,7 @@ CREATE TABLE `treasuries` (
 --
 
 INSERT INTO `treasuries` (`id`, `name`, `is_master`, `last_isal_exchange`, `last_isal_collect`, `created_at`, `updated_at`, `added_by`, `updated_by`, `com_code`, `date`, `active`) VALUES
-(1, 'الرئيسية', 1, 0, 0, '2023-03-24 23:28:31', '2023-03-24 23:28:31', 1, NULL, 1, '2023-03-24', 1),
-(5, 'سبي', 0, 5161, 5999, '2023-07-14 14:04:38', '2023-07-14 14:04:38', 1, NULL, 1, '2023-07-14', 1);
+(8, 'الرئيسية', 1, 999, 999999, '2023-07-16 19:41:42', '2023-07-16 19:42:10', 1, 1, 1, '2023-07-16', 1);
 
 -- --------------------------------------------------------
 
@@ -184,6 +221,12 @@ ALTER TABLE `admin_panel_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `inv_uoms`
+--
+ALTER TABLE `inv_uoms`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sales_matrial_types`
 --
 ALTER TABLE `sales_matrial_types`
@@ -224,22 +267,28 @@ ALTER TABLE `admin_panel_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `inv_uoms`
+--
+ALTER TABLE `inv_uoms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT for table `sales_matrial_types`
 --
 ALTER TABLE `sales_matrial_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `stores`
 --
 ALTER TABLE `stores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `treasuries`
 --
 ALTER TABLE `treasuries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `treasuries_delivery`
