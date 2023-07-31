@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2023 at 04:43 PM
+-- Generation Time: Jul 31, 2023 at 08:53 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -78,6 +78,32 @@ INSERT INTO `admin_panel_settings` (`id`, `system_name`, `photo`, `active`, `gen
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `inv_itemcard_categories`
+--
+
+CREATE TABLE `inv_itemcard_categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(252) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `added_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `com_code` int(11) NOT NULL,
+  `date` date NOT NULL COMMENT 'for search',
+  `active` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول فئات الاصناف';
+
+--
+-- Dumping data for table `inv_itemcard_categories`
+--
+
+INSERT INTO `inv_itemcard_categories` (`id`, `name`, `created_at`, `updated_at`, `added_by`, `updated_by`, `com_code`, `date`, `active`) VALUES
+(3, 'لحوم ومجمدات', '2023-07-30 23:10:03', '2023-07-30 23:10:03', 1, NULL, 1, '2023-07-30', 1),
+(4, 'مخلى', '2023-07-30 23:10:36', '2023-07-30 23:10:36', 1, NULL, 1, '2023-07-30', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `inv_uoms`
 --
 
@@ -99,10 +125,9 @@ CREATE TABLE `inv_uoms` (
 --
 
 INSERT INTO `inv_uoms` (`id`, `name`, `is_master`, `created_at`, `updated_at`, `added_by`, `updated_by`, `com_code`, `date`, `active`) VALUES
-(8, 'ؤررؤb', 0, '2023-07-17 21:48:36', '2023-07-21 21:06:53', 1, 1, 1, '2023-07-17', 0),
+(8, 'ؤررؤ', 0, '2023-07-17 21:48:36', '2023-07-22 16:50:10', 1, 1, 1, '2023-07-17', 0),
 (9, 'شكارة', 1, '2023-07-17 22:08:25', '2023-07-17 22:08:25', 1, NULL, 1, '2023-07-17', 1),
 (11, 'سسشش', 1, '2023-07-21 22:52:53', '2023-07-21 22:52:53', 1, NULL, 1, '2023-07-21', 1),
-(12, 'ءسش', 1, '2023-07-21 22:53:10', '2023-07-21 22:53:10', 1, NULL, 1, '2023-07-21', 1),
 (13, 'يؤسي', 0, '2023-07-21 22:53:35', '2023-07-21 22:53:35', 1, NULL, 1, '2023-07-21', 1);
 
 -- --------------------------------------------------------
@@ -221,6 +246,12 @@ ALTER TABLE `admin_panel_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `inv_itemcard_categories`
+--
+ALTER TABLE `inv_itemcard_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `inv_uoms`
 --
 ALTER TABLE `inv_uoms`
@@ -265,6 +296,12 @@ ALTER TABLE `admins`
 --
 ALTER TABLE `admin_panel_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `inv_itemcard_categories`
+--
+ALTER TABLE `inv_itemcard_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `inv_uoms`

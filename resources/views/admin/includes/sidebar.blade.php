@@ -70,6 +70,17 @@
                     </p>
                 </a>
             </li>
+
+
+            <li class="nav-item">
+                <a href="{{ route('inv_itemcard_categories.index') }}" class="nav-link">
+                    *
+                    <p>
+                         فئات الأصناف
+
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

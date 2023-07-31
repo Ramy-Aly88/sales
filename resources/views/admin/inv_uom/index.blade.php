@@ -13,7 +13,6 @@
 @endsection
 @section('content')
 
-
     <div class="card">
         <div class="card-header">
             <h3 class="card-title card_title_center">بيانات   وحدات القياس للأصناف</h3>
@@ -39,7 +38,6 @@
                             <option  value="1"> وحدة اب</option>
                             <option value="0"> وحدة تجزئة</option>
                         </select>
-
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -51,16 +49,16 @@
                                 $i=1;
                             @endphp
                             <table id="example2" class="table table-bordered table-hover">
-                                <thead class="custom_thead">
-                                <th>مسلسل</th>
-                                <th>اسم الوحدة</th>
-                                <th> نوع الوحدة</th>
-                                <th>حالة التفعيل</th>
-                                <th> تاريخ الاضافة</th>
-                                <th> تاريخ التحديث</th>
-                                <th></th>
+                            <thead class="custom_thead">
+                                    <th>مسلسل</th>
+                                    <th>اسم الوحدة</th>
+                                    <th> نوع الوحدة</th>
+                                    <th>حالة التفعيل</th>
+                                    <th> تاريخ الاضافة</th>
+                                    <th> تاريخ التحديث</th>
+                                    <th></th>
 
-                                </thead>
+                            </thead>
                                 <tbody>
                                 @foreach ($data as $info )
                                     <tr>
